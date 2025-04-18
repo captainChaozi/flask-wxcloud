@@ -72,4 +72,9 @@ def current_user():
     """
     :return: 当前用户的openid
     """
-    return make_succ_response(request.headers.get('X-WX-OPENID'))
+    now = str(datetime.now())
+    res = {
+        'now': now,
+        'user': request.headers.get('X-WX-OPENID')
+    }
+    return make_succ_response(res)
