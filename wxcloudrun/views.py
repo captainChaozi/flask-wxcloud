@@ -64,3 +64,12 @@ def get_count():
     """
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+
+
+# 获取当前用户的openid
+@app.route('/api/current_user', methods=['GET'])
+def current_user():
+    """
+    :return: 当前用户的openid
+    """
+    return make_succ_response(request.headers.get('X-WX-OPENID'))
