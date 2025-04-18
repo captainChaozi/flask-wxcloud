@@ -1,5 +1,6 @@
 from datetime import datetime
-from flask import render_template, request
+import json
+from flask import render_template, request, Response
 from run import app
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
@@ -72,9 +73,7 @@ def current_user():
     """
     :return: 当前用户的openid
     """
-    now = str(datetime.now())
-    res = {
-        'now': now,
-        'user': request.headers.get('X-WX-OPENID')
-    }
-    return make_succ_response(res)
+    res = dict(request.headers)
+    res["now"] = str(datetime.now())
+
+    return Response(json.dumps(res), mimetype='application/json')
